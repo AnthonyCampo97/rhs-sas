@@ -1,0 +1,323 @@
+/* ==========================================================================
+   RHS SAS · Redes Hidráulicas y Servicios
+   Hoja de estilos principal · enfoque mobile first
+   Concepto visual: la tubería roja de un cuarto de bombas (rojo de
+   tubería, acero y agua). Los puntos de corte van de menor a mayor.
+   ========================================================================== */
+
+:root {
+  --pipe: #C1272D;
+  --pipe-dark: #7F161C;
+  --steel: #0F1E2B;
+  --steel-2: #1A2E40;
+  --water: #22B3D9;
+  --water-dark: #0B6F8C;
+  --water-light: #8FD9F7;
+  --cream: #FFF1D6;
+  --paper: #F2F5F7;
+  --white: #FFFFFF;
+  --ink: #14212B;
+  --muted: #4A5B67;
+  --line: #D3DCE2;
+  --signal: #F2B705;
+  --whatsapp: #1E8E4E;
+
+  --font-head: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --gutter: 1.25rem;
+  --max: 72rem;
+  --header-h: 4rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding-bottom: 3.25rem; /* espacio para la barra fija móvil */
+  font: 400 1rem/1.65 var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+}
+
+img, svg, video { display: block; max-width: 100%; }
+a { color: var(--pipe-dark); text-underline-offset: 0.18em; }
+a:hover { color: var(--pipe); }
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+
+.container { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 100;
+  background: var(--signal); color: var(--steel); padding: 0.75rem 1rem; font-weight: 600;
+}
+.skip-link:focus { left: 0; }
+
+/* ---------- Tipografía ---------- */
+h1, h2, h3 { font-family: var(--font-head); font-weight: 700; line-height: 1.08; letter-spacing: 0.005em; margin: 0 0 0.6em; }
+h1 { font-size: clamp(2.3rem, 8vw, 3.9rem); }
+h2 { font-size: clamp(1.8rem, 5vw, 2.6rem); }
+h3 { font-size: 1.45rem; }
+p { margin: 0 0 1em; }
+.lead { font-size: 1.08rem; max-width: 40rem; }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 3rem; padding: 0.75rem 1.4rem;
+  font: 600 1rem/1.2 var(--font-body); text-decoration: none; text-align: center;
+  border: 2px solid transparent; border-radius: 4px; cursor: pointer;
+  transition: background-color 0.18s, border-color 0.18s, color 0.18s;
+}
+.btn-primary { background: var(--pipe); color: #fff; }
+.btn-primary:hover { background: var(--pipe-dark); color: #fff; }
+.btn-ghost { border-color: rgba(255, 255, 255, 0.55); color: #fff; }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.btn-outline { border-color: var(--pipe); color: var(--pipe-dark); background: transparent; }
+.btn-outline:hover { background: var(--pipe); color: #fff; }
+.btn-wa { background: var(--whatsapp); color: #fff; }
+.btn-wa:hover { background: #17713D; color: #fff; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* ---------- Encabezado y menú ---------- */
+.site-header { position: sticky; top: 0; z-index: 50; background: var(--steel); color: #fff; }
+.bar { display: flex; align-items: center; justify-content: space-between; min-height: var(--header-h); }
+.brand { display: flex; align-items: center; gap: 0.65rem; color: #fff; text-decoration: none; }
+.brand:hover { color: #fff; }
+.brand img { width: 2.5rem; height: 2.5rem; }
+.brand-name { display: block; font: 700 1.6rem/1 var(--font-head); letter-spacing: 0.03em; }
+.brand-sub { display: block; font: 400 0.72rem/1.25 var(--font-body); color: #B8C6D0; }
+
+.nav-toggle {
+  width: 3rem; height: 3rem; display: grid; place-items: center;
+  background: none; border: 0; color: #fff; cursor: pointer;
+}
+.nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
+  display: block; width: 1.5rem; height: 2px; background: currentColor; content: ""; position: relative;
+  transition: transform 0.2s, background-color 0.2s;
+}
+.nav-toggle span::before { position: absolute; top: -7px; }
+.nav-toggle span::after { position: absolute; top: 7px; }
+.nav-toggle[aria-expanded="true"] span { background: transparent; }
+.nav-toggle[aria-expanded="true"] span::before { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span::after { transform: translateY(-7px) rotate(-45deg); }
+
+.menu {
+  display: none; position: absolute; left: 0; right: 0; top: 100%;
+  background: var(--steel-2); border-top: 3px solid var(--pipe);
+  max-height: calc(100vh - var(--header-h)); overflow-y: auto;
+}
+.menu.open { display: block; }
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.menu a, .sub-toggle {
+  display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 3rem;
+  padding: 0.85rem var(--gutter); color: #fff; text-decoration: none; text-align: left;
+  font: 500 1rem var(--font-body); background: none; border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer;
+}
+.menu a:hover, .sub-toggle:hover { color: var(--signal); }
+.menu a[aria-current="page"] { color: var(--signal); }
+.sub-toggle::after { content: "▾"; font-size: 0.85em; transition: transform 0.2s; }
+.has-sub.open > .sub-toggle::after { transform: rotate(180deg); }
+.sub { display: none; background: rgba(0, 0, 0, 0.22); }
+.has-sub.open > .sub { display: block; }
+.sub a { padding-left: calc(var(--gutter) + 1rem); }
+
+/* ---------- Tubería divisoria (motivo gráfico) ---------- */
+.pipe {
+  height: 16px; background-color: var(--pipe);
+  background-image: repeating-linear-gradient(90deg, transparent 0 108px, rgba(0, 0, 0, 0.3) 108px 114px, transparent 114px 120px);
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.22), inset 0 -3px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Portada ---------- */
+.hero { background: var(--steel); color: #fff; }
+.hero-grid { display: grid; gap: 2rem; padding: 2.75rem 0 2.5rem; align-items: center; }
+.tagline { font: 600 1.35rem/1.2 var(--font-head); color: var(--signal); margin-bottom: 1rem; letter-spacing: 0.02em; }
+.hero .lead { color: #D3DDE4; }
+.hero-art svg { width: 100%; height: auto; }
+
+/* Escena animada: el agua llena la tubería y los rociadores descargan */
+.pipe-body { fill: none; stroke: var(--pipe); stroke-linejoin: miter; }
+.flange { fill: var(--pipe-dark); }
+.flow { fill: none; stroke: var(--cream); stroke-width: 4; stroke-dasharray: 100; stroke-dashoffset: 100; animation: fill-pipe 1.8s 0.3s ease-out forwards; }
+.flow-branch { animation-duration: 0.5s; animation-delay: 1.9s; }
+.drop { fill: var(--water-light); opacity: 0; animation: spray 1.7s calc(2.3s + var(--d, 0s)) ease-in infinite; }
+.needle { stroke: var(--pipe-dark); stroke-width: 2.5; stroke-linecap: round; transform-origin: 112px 66px; transform: rotate(-70deg); animation: gauge 1.8s 0.3s ease-out forwards; }
+@keyframes fill-pipe { to { stroke-dashoffset: 0; } }
+@keyframes spray {
+  0% { opacity: 0; transform: translate(0, 0); }
+  12% { opacity: 0.95; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+}
+@keyframes gauge { to { transform: rotate(38deg); } }
+
+/* ---------- Secciones ---------- */
+.section { padding: 3.25rem 0; }
+.section--paper { background: var(--paper); }
+.section--dark { background: var(--steel); color: #fff; }
+.sec-head { margin-bottom: 2rem; max-width: 44rem; }
+.sec-head h2::before { content: ""; display: block; width: 3rem; height: 0.4rem; background: var(--pipe); margin-bottom: 0.85rem; }
+.section--dark .lead, .section--dark p { color: #D3DDE4; }
+
+/* Pilares en la portada */
+.pillars { list-style: none; counter-reset: p; margin: 1.5rem 0; padding: 0; display: grid; gap: 0.5rem 1.5rem; }
+.pillars li { counter-increment: p; padding: 0.55rem 0; border-bottom: 1px solid var(--line); font-weight: 500; }
+.pillars li::before { content: counter(p) "."; display: inline-block; width: 1.8rem; color: var(--pipe); font: 700 1.15rem var(--font-head); }
+
+/* Servicios */
+.cards { display: grid; gap: 1.5rem; }
+.card { background: var(--white); border: 1px solid var(--line); border-top: 4px solid var(--pipe); border-radius: 4px; display: flex; flex-direction: column; }
+.card-body { padding: 1.25rem 1.25rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.card-body p, .card-body ul { font-size: 0.97rem; }
+.card-body ul { padding-left: 1.1rem; margin: 0 0 1em; }
+.card-body .btn { margin-top: auto; align-self: flex-start; }
+
+/* Espacios para imágenes */
+.slot {
+  position: relative; margin: 0; overflow: hidden; display: grid; place-items: center;
+  aspect-ratio: var(--ratio, 4/3);
+  background: repeating-linear-gradient(135deg, #E1E8ED 0 12px, #ECF1F4 12px 24px);
+}
+.slot::after {
+  content: attr(data-slot); padding: 0.5rem 0.75rem; text-align: center;
+  font: 500 0.74rem/1.4 var(--font-body); color: #51606B;
+}
+.slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.slot--logo { --ratio: 2/1; background: var(--white); border: 1px solid var(--line); }
+.slot--logo img { object-fit: contain; padding: 0.5rem; }
+.banner.slot { aspect-ratio: 16/9; border-radius: 4px; margin-bottom: 2rem; }
+
+/* Ventajas */
+.checks { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: 0.75rem; }
+.checks li { position: relative; padding-left: 2rem; }
+.checks li::before { content: ""; position: absolute; left: 0; top: 0.35rem; width: 1.15rem; height: 0.6rem; border-left: 3px solid var(--water); border-bottom: 3px solid var(--water); transform: rotate(-45deg); }
+.callout { background: var(--steel); color: #fff; padding: 1.5rem; border-radius: 4px; border-left: 6px solid var(--pipe); }
+.callout p { font: 600 1.35rem/1.25 var(--font-head); margin-bottom: 1rem; }
+
+/* Preguntas frecuentes */
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; padding: 1rem 2rem 1rem 0; font: 600 1.2rem/1.3 var(--font-head); position: relative; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 0.25rem; top: 0.75rem; font-size: 1.6rem; color: var(--pipe); }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { padding-bottom: 1rem; max-width: 42rem; }
+
+/* Cifras */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; margin: 0; }
+.stats div { border-top: 3px solid var(--pipe); padding-top: 0.75rem; }
+.stats dt { order: 2; color: #B8C6D0; font-size: 0.95rem; }
+.stats dd { margin: 0; font: 700 clamp(2.6rem, 9vw, 3.8rem)/1 var(--font-head); color: #fff; }
+.stats div { display: flex; flex-direction: column; }
+.about-grid { display: grid; gap: 2rem; align-items: center; }
+
+/* Galería y clientes */
+.gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.logos { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+
+/* ---------- Páginas interiores ---------- */
+.page-head { background: var(--steel); color: #fff; padding: 2.25rem 0 2rem; }
+.page-head h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.2rem); max-width: 22ch; }
+.breadcrumb { font-size: 0.85rem; color: #B8C6D0; margin-bottom: 0.75rem; }
+.breadcrumb a { color: #fff; }
+.prose { max-width: 46rem; }
+.prose h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-top: 2rem; }
+.prose ul { padding-left: 1.2rem; }
+.prose li { margin-bottom: 0.4rem; }
+.prose .sec-head, .prose h2:first-child { margin-top: 0; }
+.split { display: grid; gap: 2rem; }
+
+.defs { display: grid; gap: 1rem; margin: 0; }
+.defs div { border-left: 4px solid var(--pipe); padding: 0.25rem 0 0.25rem 1rem; }
+.defs dt { font: 700 1.35rem/1.2 var(--font-head); margin-bottom: 0.2rem; }
+.defs dd { margin: 0; font-size: 0.97rem; color: var(--muted); }
+
+.pillar { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+.pillar h2 { font-size: 1.7rem; margin-bottom: 0.5rem; }
+.pillar ul { margin: 0; padding-left: 1.2rem; }
+
+/* Formulario */
+.form { display: grid; gap: 1rem; }
+.field label { display: block; font-weight: 600; margin-bottom: 0.3rem; }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 0.75rem; font: 400 1rem var(--font-body); color: var(--ink);
+  background: #fff; border: 1.5px solid #8FA1AD; border-radius: 4px;
+}
+.field textarea { min-height: 8rem; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 3px solid var(--signal); border-color: var(--steel); }
+.hp { position: absolute; left: -9999px; }
+.form-note { font-size: 0.88rem; color: var(--muted); }
+.form-status { min-height: 1.5rem; font-weight: 600; }
+.form-status.ok { color: #17713D; }
+.form-status.err { color: var(--pipe-dark); }
+.contact-data { display: grid; gap: 1.5rem; }
+.contact-data h3 { margin-bottom: 0.3rem; }
+.contact-data p { margin-bottom: 0.25rem; }
+
+/* ---------- Pie ---------- */
+.site-footer { background: var(--steel); color: #C9D5DD; }
+.footer-grid { display: grid; gap: 2rem; padding: 2.5rem 0 2rem; }
+.site-footer h2 { font-size: 1.3rem; color: #fff; margin-bottom: 0.6rem; }
+.site-footer a { color: #fff; }
+.site-footer a:hover { color: var(--signal); }
+.site-footer ul { list-style: none; margin: 0; padding: 0; }
+.site-footer li { margin-bottom: 0.35rem; }
+.legal { border-top: 1px solid rgba(255, 255, 255, 0.14); padding: 1rem 0; font-size: 0.85rem; }
+
+/* Barra fija de llamada y WhatsApp (solo móvil) */
+.fab { position: fixed; inset: auto 0 0 0; z-index: 40; display: grid; grid-template-columns: 1fr 1fr; }
+.fab a { display: flex; align-items: center; justify-content: center; min-height: 3.25rem; color: #fff; font-weight: 600; text-decoration: none; }
+.fab .call { background: var(--pipe); }
+.fab .wa { background: var(--whatsapp); }
+
+/* ==========================================================================
+   Tablet y escritorio
+   ========================================================================== */
+@media (min-width: 40rem) {
+  :root { --gutter: 1.75rem; }
+  .gallery { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .logos { grid-template-columns: repeat(3, 1fr); }
+  .pillars { grid-template-columns: 1fr 1fr; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .banner.slot { aspect-ratio: var(--ratio, 14/5); }
+  .contact-data { grid-template-columns: 1fr 1fr; }
+  .defs { grid-template-columns: 1fr 1fr; gap: 1.25rem 2rem; }
+}
+
+@media (min-width: 60rem) {
+  body { padding-bottom: 0; }
+  .fab, .nav-toggle { display: none; }
+
+  .menu { display: block; position: static; background: none; border: 0; max-height: none; overflow: visible; }
+  .menu > ul { display: flex; gap: 0.25rem; }
+  .menu a, .sub-toggle { width: auto; min-height: 0; padding: 0.55rem 0.9rem; border: 0; }
+  .has-sub { position: relative; }
+  .sub { position: absolute; top: 100%; left: 0; min-width: 16rem; background: var(--steel-2); border-top: 3px solid var(--pipe); }
+  .has-sub:hover > .sub, .has-sub:focus-within > .sub { display: block; }
+  .sub a { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+
+  .hero-grid { grid-template-columns: 1.05fr 0.95fr; gap: 3rem; padding: 4.5rem 0 4rem; }
+  .section { padding: 5rem 0; }
+  .cards { grid-template-columns: repeat(4, 1fr); }
+  .pillars { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .split { grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .logos { grid-template-columns: repeat(6, 1fr); }
+  .footer-grid { grid-template-columns: 1.4fr 1fr 1.2fr; }
+  .callout { padding: 2rem; }
+}
+
+/* ---------- Preferencia de movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .flow { animation: none; stroke-dashoffset: 0; }
+  .drop { animation: none; opacity: 0; }
+  .needle { animation: none; transform: rotate(38deg); }
+  .btn, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after, .sub-toggle::after { transition: none; }
+}
